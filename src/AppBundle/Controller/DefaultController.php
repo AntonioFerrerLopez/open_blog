@@ -13,9 +13,11 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        //$url = $this->generateUrl('category_edit' , array('slug' => 'Que tal desde default controler'));
+        //return $this->redirect($url);
+
+
+        return $this->render('default/index.html.twig' , array('base_dir' => 'mis cojones'));
     }
 
 

@@ -2,15 +2,25 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Post;
+use AppBundle\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 class PostController extends Controller
 {
 
+    private $postRepository;
+
+public function __construct()
+{
+    $this->postRepository = PostRepository::class;
+}
+
     /**
-     * @Route("/list/{page}", name="list")
+     * @Route("/list/{page}", name="list",  requirements={"page": "\d+"})
      */
     public function listAction(Request $request, $page)
     {
@@ -34,9 +44,9 @@ class PostController extends Controller
      */
     public function newAction(Request $request)
     {
+
         return $this->render('default/index.html.twig', [
-            'base_dir' => 'vista post new',
-        ]);
+            'base_dir' => 'vista post new',]);
     }
 
     /**
@@ -48,7 +58,17 @@ class PostController extends Controller
             'base_dir' => 'vista post edit',
         ]);
     }
+    /**
+     * @Route("/post/search/{title}", name="post_search")
+     */
+    public function searchAction(Request $request ,  $title , PostRepository $repository)
+    {
 
+        $repository->findAllByTitle($title);
 
+        return $this->render('default/index.html.twig', [
+            'base_dir' => 'vista post edit',
+        ]);
+    }
 
 }

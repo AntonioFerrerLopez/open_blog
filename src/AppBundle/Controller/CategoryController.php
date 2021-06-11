@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 class CategoryController extends Controller
 {
     /**
-     * @Route("/category/{page}", name="category")
+     * @Route("/category/{page}", name="category" , requirements={"page": "\d+"})
      */
     public function listAction(Request $request, $page)
     {
@@ -30,13 +31,11 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Route("/new/edit/{slug}", name="category_edit")
+     * @Route("/category/edit/{slug}", name="category_edit")
      */
     public function editAction(Request $request, $slug)
     {
-        return $this->render('default/index.html.twig', [
-            'base_dir' => 'vista category edit',
-        ]);
+        return new Response('<html lang="es"><body><small>'.$slug.'</small></body></html>');
     }
 
 
